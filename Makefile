@@ -1,9 +1,9 @@
 PACKAGE	= Keyboard
 VERSION	= 0.2.1
 SUBDIRS	= data include po src tools
-RM	?= rm -f
-LN	?= ln -f
-TAR	?= tar -czvf
+RM	= rm -f
+LN	= ln -f
+TAR	= tar -czvf
 
 
 all: subdirs
