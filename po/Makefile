@@ -17,6 +17,7 @@ fr.mo: Keyboard.pot fr.po
 
 clean:
 	$(RM) -- $(Keyboard.pot_OBJS) $(fr.mo_OBJS)
+	./gettext.sh -c -P "$(PREFIX)" -- "fr.mo"
 
 distclean: clean
 	$(RM) -- $(TARGETS)
