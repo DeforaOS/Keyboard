@@ -1,5 +1,5 @@
 /* $Id$ */
-/* Copyright (c) 2010-2012 Pierre Pronchery <khorben@defora.org> */
+/* Copyright (c) 2010-2013 Pierre Pronchery <khorben@defora.org> */
 /* This file is part of DeforaOS Desktop Keyboard */
 /* This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,6 @@
 #include "../config.h"
 #define _(string) gettext(string)
 
-
 /* constants */
 #ifndef PREFIX
 # define PREFIX		"/usr/local"
@@ -39,8 +38,38 @@
 #endif
 
 
+/* keyboard */
 /* private */
+/* prototypes */
+static int _keyboard(KeyboardPrefs * prefs);
+
+static int _error(char const * message, int ret);
+static int _usage(void);
+
+
 /* functions */
+/* keyboard */
+static int _keyboard(KeyboardPrefs * prefs)
+{
+	Keyboard * keyboard;
+
+	if((keyboard = keyboard_new(prefs)) == NULL)
+		return -1;
+	gtk_main();
+	keyboard_delete(keyboard);
+	return 0;
+}
+
+
+/* error */
+static int _error(char const * message, int ret)
+{
+	fputs("keyboard: ", stderr);
+	perror(message);
+	return ret;
+}
+
+
 /* usage */
 static int _usage(void)
 {
@@ -62,11 +91,11 @@ static int _usage(void)
 int main(int argc, char * argv[])
 {
 	int o;
-	Keyboard * keyboard;
 	KeyboardPrefs prefs;
 	char * p;
 
-	setlocale(LC_ALL, "");
+	if(setlocale(LC_ALL, "") == NULL)
+		_error("setlocale", 1);
 	bindtextdomain(PACKAGE, LOCALEDIR);
 	textdomain(PACKAGE);
 	memset(&prefs, 0, sizeof(prefs));
@@ -102,8 +131,5 @@ int main(int argc, char * argv[])
 		}
 	if(optind != argc)
 		return _usage();
-	keyboard = keyboard_new(&prefs);
-	gtk_main();
-	keyboard_delete(keyboard);
-	return 0;
+	return (_keyboard(&prefs) == 0) ? 0 : 2;
 }

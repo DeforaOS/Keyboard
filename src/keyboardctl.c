@@ -1,5 +1,5 @@
 /* $Id$ */
-/* Copyright (c) 2012 Pierre Pronchery <khorben@defora.org> */
+/* Copyright (c) 2012-2013 Pierre Pronchery <khorben@defora.org> */
 /* This file is part of DeforaOS Desktop Keyboard */
 /* This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,6 @@
 #include "../config.h"
 #define _(string) gettext(string)
 
-
 /* constants */
 #ifndef PREFIX
 # define PREFIX		"/usr/local"
@@ -43,6 +42,8 @@
 /* private */
 /* prototypes */
 static int _keyboardctl(KeyboardMessage message, unsigned int arg1);
+
+static int _error(char const * message, int ret);
 static int _usage(void);
 
 
@@ -51,6 +52,15 @@ static int _keyboardctl(KeyboardMessage message, unsigned int arg1)
 {
 	desktop_message_send(KEYBOARD_CLIENT_MESSAGE, message, arg1, 0);
 	return 0;
+}
+
+
+/* error */
+static int _error(char const * message, int ret)
+{
+	fputs("keyboardctl: ", stderr);
+	perror(message);
+	return ret;
 }
 
 
@@ -73,7 +83,8 @@ int main(int argc, char * argv[])
 	int message = -1;
 	int arg1;
 
-	setlocale(LC_ALL, "");
+	if(setlocale(LC_ALL, "") == NULL)
+		_error("setlocale", 1);
 	bindtextdomain(PACKAGE, LOCALEDIR);
 	textdomain(PACKAGE);
 	gtk_init(&argc, &argv);
