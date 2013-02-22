@@ -11,7 +11,7 @@ CFLAGS	= -Wall -g -pedantic
 LDFLAGSF= `pkg-config --libs libDesktop`
 RM	= rm -f
 LN	= ln -f
-MKDIR	= mkdir -p
+MKDIR	= mkdir -m 0755 -p
 INSTALL	= install
 
 
