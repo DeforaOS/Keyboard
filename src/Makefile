@@ -60,9 +60,9 @@ distclean: clean
 
 install: $(TARGETS)
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- keyboard $(DESTDIR)$(BINDIR)/keyboard
+	$(INSTALL) -m 0755 keyboard $(DESTDIR)$(BINDIR)/keyboard
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- keyboardctl $(DESTDIR)$(BINDIR)/keyboardctl
+	$(INSTALL) -m 0755 keyboardctl $(DESTDIR)$(BINDIR)/keyboardctl
 
 uninstall:
 	$(RM) -- $(DESTDIR)$(BINDIR)/keyboard

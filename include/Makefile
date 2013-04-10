@@ -15,7 +15,7 @@ distclean: clean
 
 install:
 	$(MKDIR) $(DESTDIR)$(PREFIX)/include/Desktop
-	$(INSTALL) -m 0644 -- Keyboard.h $(DESTDIR)$(PREFIX)/include/Desktop/Keyboard.h
+	$(INSTALL) -m 0644 Keyboard.h $(DESTDIR)$(PREFIX)/include/Desktop/Keyboard.h
 
 uninstall:
 	$(RM) -- $(DESTDIR)$(PREFIX)/include/Desktop/Keyboard.h
