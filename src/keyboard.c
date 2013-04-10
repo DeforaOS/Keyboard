@@ -437,8 +437,8 @@ Keyboard * keyboard_new(KeyboardPrefs * prefs)
 	keyboard_set_layout(keyboard, KLS_LETTERS);
 	pango_font_description_free(bold);
 	/* messages */
-	desktop_message_register(KEYBOARD_CLIENT_MESSAGE, on_keyboard_message,
-			keyboard);
+	desktop_message_register(keyboard->window, KEYBOARD_CLIENT_MESSAGE,
+			on_keyboard_message, keyboard);
 	return keyboard;
 }
 
