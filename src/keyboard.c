@@ -386,6 +386,7 @@ Keyboard * keyboard_new(KeyboardPrefs * prefs)
 	{
 		group = gtk_accel_group_new();
 		gtk_window_add_accel_group(GTK_WINDOW(keyboard->window), group);
+		g_object_unref(group);
 		widget = desktop_menubar_create(_keyboard_menubar, keyboard,
 				group);
 		gtk_widget_show_all(widget);
