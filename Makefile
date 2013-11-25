@@ -22,7 +22,7 @@ dist:
 	$(LN) -s -- . $(PACKAGE)-$(VERSION)
 	@$(TAR) $(PACKAGE)-$(VERSION).tar.gz -- \
 		$(PACKAGE)-$(VERSION)/data/Makefile \
-		$(PACKAGE)-$(VERSION)/data/keyboard.desktop \
+		$(PACKAGE)-$(VERSION)/data/deforaos-keyboard.desktop \
 		$(PACKAGE)-$(VERSION)/data/project.conf \
 		$(PACKAGE)-$(VERSION)/include/Keyboard.h \
 		$(PACKAGE)-$(VERSION)/include/Makefile \
