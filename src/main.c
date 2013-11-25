@@ -27,6 +27,9 @@
 #define _(string) gettext(string)
 
 /* constants */
+#ifndef PROGNAME
+# define PROGNAME	"keyboard"
+#endif
 #ifndef PREFIX
 # define PREFIX		"/usr/local"
 #endif
@@ -64,7 +67,7 @@ static int _keyboard(KeyboardPrefs * prefs)
 /* error */
 static int _error(char const * message, int ret)
 {
-	fputs("keyboard: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -73,14 +76,14 @@ static int _error(char const * message, int ret)
 /* usage */
 static int _usage(void)
 {
-	fputs(_("Usage: keyboard [-d|-p|-w|-x][-f font][-m monitor][-n]\n"
+	fprintf(stderr, _("Usage: %s [-d|-p|-w|-x][-f font][-m monitor][-n]\n"
 "  -d	Start in docked mode\n"
 "  -p	Start as a popup window\n"
 "  -w	Start in windowed mode\n"
 "  -x	Start in embedded mode\n"
 "  -f	Set the font used for the keys\n"
 "  -m	Place on a particular monitor (in docked or popup mode)\n"
-"  -n	Start without showing up directly (if not embedded)\n"), stderr);
+"  -n	Start without showing up directly (if not embedded)\n"), PROGNAME);
 	return 1;
 }
 
