@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=Virtual keyboard
 Comment=An on-screen keyboard
+TryExec=keyboard
 Exec=keyboard
 Icon=input-keyboard
 Type=Application
