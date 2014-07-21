@@ -379,7 +379,11 @@ Keyboard * keyboard_new(KeyboardPrefs * prefs)
 	}
 	bold = pango_font_description_new();
 	pango_font_description_set_weight(bold, PANGO_WEIGHT_BOLD);
+#if GTK_CHECK_VERSION(3, 0, 0)
+	vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
+#else
 	vbox = gtk_vbox_new(FALSE, 4);
+#endif
 	gtk_container_add(GTK_CONTAINER(keyboard->window), vbox);
 	/* menubar */
 	if(prefs->mode == KEYBOARD_MODE_WINDOWED)
@@ -392,7 +396,11 @@ Keyboard * keyboard_new(KeyboardPrefs * prefs)
 		gtk_widget_show_all(widget);
 		gtk_box_pack_start(GTK_BOX(vbox), widget, FALSE, FALSE, 0);
 		/* XXX border hack */
+#if GTK_CHECK_VERSION(3, 0, 0)
+		widget = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
+#else
 		widget = gtk_vbox_new(FALSE, 4);
+#endif
 		gtk_container_set_border_width(GTK_CONTAINER(widget), 4);
 		gtk_box_pack_start(GTK_BOX(vbox), widget, TRUE, TRUE, 0);
 		gtk_widget_show(vbox);
