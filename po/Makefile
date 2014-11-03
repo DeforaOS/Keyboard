@@ -1,4 +1,5 @@
-TARGETS	= Keyboard.pot fr.mo
+TARGETS	= $(OBJDIR)Keyboard.pot $(OBJDIR)fr.mo
+OBJDIR	=
 PREFIX	= /usr/local
 DESTDIR	=
 RM	= rm -f
@@ -9,11 +10,11 @@ INSTALL	= install
 
 all: $(TARGETS)
 
-Keyboard.pot: POTFILES
-	./gettext.sh -P "$(PREFIX)" -- "Keyboard.pot"
+$(OBJDIR)Keyboard.pot: POTFILES
+	./gettext.sh -P "$(PREFIX)" -- "$(OBJDIR)Keyboard.pot"
 
-fr.mo: Keyboard.pot fr.po
-	./gettext.sh -P "$(PREFIX)" -- "fr.mo"
+$(OBJDIR)fr.mo: $(OBJDIR)Keyboard.pot fr.po
+	./gettext.sh -P "$(PREFIX)" -- "$(OBJDIR)fr.mo"
 
 clean:
 	$(RM) -- $(Keyboard.pot_OBJS) $(fr.mo_OBJS)
@@ -24,7 +25,7 @@ distclean: clean
 	$(RM) -- $(TARGETS)
 
 install: $(TARGETS)
-	./gettext.sh -P "$(DESTDIR)$(PREFIX)" -i -- "fr.mo"
+	./gettext.sh -P "$(DESTDIR)$(PREFIX)" -i -- "$(OBJDIR)fr.mo"
 
 uninstall:
 	./gettext.sh -P "$(DESTDIR)$(PREFIX)" -u -- "fr.mo"

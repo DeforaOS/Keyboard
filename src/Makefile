@@ -1,4 +1,5 @@
-TARGETS	= keyboard keyboardctl
+TARGETS	= $(OBJDIR)keyboard $(OBJDIR)keyboardctl
+OBJDIR	=
 PREFIX	= /usr/local
 DESTDIR	=
 BINDIR	= $(PREFIX)/bin
@@ -17,40 +18,40 @@ INSTALL	= install
 
 all: $(TARGETS)
 
-keyboard_OBJS = callbacks.o common.o key.o keyboard.o layout.o main.o
+keyboard_OBJS = $(OBJDIR)callbacks.o $(OBJDIR)common.o $(OBJDIR)key.o $(OBJDIR)keyboard.o $(OBJDIR)layout.o $(OBJDIR)main.o
 keyboard_CFLAGS = $(CPPFLAGSF) $(CPPFLAGS) $(CFLAGSF) $(CFLAGS)
 keyboard_LDFLAGS = $(LDFLAGSF) $(LDFLAGS) `pkg-config --libs x11` -lXtst
 
-keyboard: $(keyboard_OBJS)
-	$(CC) -o keyboard $(keyboard_OBJS) $(keyboard_LDFLAGS)
+$(OBJDIR)keyboard: $(keyboard_OBJS)
+	$(CC) -o $(OBJDIR)keyboard $(keyboard_OBJS) $(keyboard_LDFLAGS)
 
-keyboardctl_OBJS = keyboardctl.o
+keyboardctl_OBJS = $(OBJDIR)keyboardctl.o
 keyboardctl_CFLAGS = $(CPPFLAGSF) $(CPPFLAGS) $(CFLAGSF) $(CFLAGS) `pkg-config --cflags libDesktop`
 keyboardctl_LDFLAGS = $(LDFLAGSF) $(LDFLAGS) `pkg-config --libs libDesktop`
 
-keyboardctl: $(keyboardctl_OBJS)
-	$(CC) -o keyboardctl $(keyboardctl_OBJS) $(keyboardctl_LDFLAGS)
+$(OBJDIR)keyboardctl: $(keyboardctl_OBJS)
+	$(CC) -o $(OBJDIR)keyboardctl $(keyboardctl_OBJS) $(keyboardctl_LDFLAGS)
 
-callbacks.o: callbacks.c callbacks.h
-	$(CC) $(keyboard_CFLAGS) -c callbacks.c
+$(OBJDIR)callbacks.o: callbacks.c callbacks.h
+	$(CC) $(keyboard_CFLAGS) -o $(OBJDIR)callbacks.o -c callbacks.c
 
-common.o: common.c
-	$(CC) $(keyboard_CFLAGS) -c common.c
+$(OBJDIR)common.o: common.c
+	$(CC) $(keyboard_CFLAGS) -o $(OBJDIR)common.o -c common.c
 
-key.o: key.c key.h
-	$(CC) $(keyboard_CFLAGS) -c key.c
+$(OBJDIR)key.o: key.c key.h
+	$(CC) $(keyboard_CFLAGS) -o $(OBJDIR)key.o -c key.c
 
-keyboard.o: keyboard.c callbacks.h keyboard.h ../config.h
-	$(CC) $(keyboard_CFLAGS) -c keyboard.c
+$(OBJDIR)keyboard.o: keyboard.c callbacks.h keyboard.h ../config.h
+	$(CC) $(keyboard_CFLAGS) -o $(OBJDIR)keyboard.o -c keyboard.c
 
-layout.o: layout.c layout.h
-	$(CC) $(keyboard_CFLAGS) -c layout.c
+$(OBJDIR)layout.o: layout.c layout.h
+	$(CC) $(keyboard_CFLAGS) -o $(OBJDIR)layout.o -c layout.c
 
-main.o: main.c keyboard.h
-	$(CC) $(keyboard_CFLAGS) -c main.c
+$(OBJDIR)main.o: main.c keyboard.h
+	$(CC) $(keyboard_CFLAGS) -o $(OBJDIR)main.o -c main.c
 
-keyboardctl.o: keyboardctl.c
-	$(CC) $(keyboardctl_CFLAGS) -c keyboardctl.c
+$(OBJDIR)keyboardctl.o: keyboardctl.c
+	$(CC) $(keyboardctl_CFLAGS) -o $(OBJDIR)keyboardctl.o -c keyboardctl.c
 
 clean:
 	$(RM) -- $(keyboard_OBJS) $(keyboardctl_OBJS)
@@ -60,9 +61,9 @@ distclean: clean
 
 install: $(TARGETS)
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 keyboard $(DESTDIR)$(BINDIR)/keyboard
+	$(INSTALL) -m 0755 $(OBJDIR)keyboard $(DESTDIR)$(BINDIR)/keyboard
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 keyboardctl $(DESTDIR)$(BINDIR)/keyboardctl
+	$(INSTALL) -m 0755 $(OBJDIR)keyboardctl $(DESTDIR)$(BINDIR)/keyboardctl
 
 uninstall:
 	$(RM) -- $(DESTDIR)$(BINDIR)/keyboard

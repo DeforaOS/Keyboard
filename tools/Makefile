@@ -1,4 +1,5 @@
-TARGETS	= plug snooper xkey
+TARGETS	= $(OBJDIR)plug $(OBJDIR)snooper $(OBJDIR)xkey
+OBJDIR	=
 PREFIX	= /usr/local
 DESTDIR	=
 BINDIR	= $(PREFIX)/bin
@@ -17,35 +18,35 @@ INSTALL	= install
 
 all: $(TARGETS)
 
-plug_OBJS = plug.o
+plug_OBJS = $(OBJDIR)plug.o
 plug_CFLAGS = $(CPPFLAGSF) $(CPPFLAGS) $(CFLAGSF) $(CFLAGS)
 plug_LDFLAGS = $(LDFLAGSF) $(LDFLAGS)
 
-plug: $(plug_OBJS)
-	$(CC) -o plug $(plug_OBJS) $(plug_LDFLAGS)
+$(OBJDIR)plug: $(plug_OBJS)
+	$(CC) -o $(OBJDIR)plug $(plug_OBJS) $(plug_LDFLAGS)
 
-snooper_OBJS = snooper.o
+snooper_OBJS = $(OBJDIR)snooper.o
 snooper_CFLAGS = $(CPPFLAGSF) $(CPPFLAGS) $(CFLAGSF) $(CFLAGS)
 snooper_LDFLAGS = $(LDFLAGSF) $(LDFLAGS)
 
-snooper: $(snooper_OBJS)
-	$(CC) -o snooper $(snooper_OBJS) $(snooper_LDFLAGS)
+$(OBJDIR)snooper: $(snooper_OBJS)
+	$(CC) -o $(OBJDIR)snooper $(snooper_OBJS) $(snooper_LDFLAGS)
 
-xkey_OBJS = xkey.o
+xkey_OBJS = $(OBJDIR)xkey.o
 xkey_CFLAGS = $(CPPFLAGSF) $(CPPFLAGS) $(CFLAGSF) $(CFLAGS)
 xkey_LDFLAGS = $(LDFLAGSF) $(LDFLAGS) `pkg-config --libs x11` -lXtst
 
-xkey: $(xkey_OBJS)
-	$(CC) -o xkey $(xkey_OBJS) $(xkey_LDFLAGS)
+$(OBJDIR)xkey: $(xkey_OBJS)
+	$(CC) -o $(OBJDIR)xkey $(xkey_OBJS) $(xkey_LDFLAGS)
 
-plug.o: plug.c
-	$(CC) $(plug_CFLAGS) -c plug.c
+$(OBJDIR)plug.o: plug.c
+	$(CC) $(plug_CFLAGS) -o $(OBJDIR)plug.o -c plug.c
 
-snooper.o: snooper.c
-	$(CC) $(snooper_CFLAGS) -c snooper.c
+$(OBJDIR)snooper.o: snooper.c
+	$(CC) $(snooper_CFLAGS) -o $(OBJDIR)snooper.o -c snooper.c
 
-xkey.o: xkey.c
-	$(CC) $(xkey_CFLAGS) -c xkey.c
+$(OBJDIR)xkey.o: xkey.c
+	$(CC) $(xkey_CFLAGS) -o $(OBJDIR)xkey.o -c xkey.c
 
 clean:
 	$(RM) -- $(plug_OBJS) $(snooper_OBJS) $(xkey_OBJS)
