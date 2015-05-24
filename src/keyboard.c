@@ -490,8 +490,8 @@ static void _new_mode_docked(Keyboard * keyboard)
 	gtk_widget_set_size_request(keyboard->window, keyboard->width,
 			keyboard->height);
 	gtk_window_move(GTK_WINDOW(keyboard->window), keyboard->x, keyboard->y);
-	g_signal_connect_swapped(G_OBJECT(keyboard->window), "delete-event",
-			G_CALLBACK(on_keyboard_delete_event), keyboard);
+	g_signal_connect_swapped(keyboard->window, "delete-event", G_CALLBACK(
+				on_keyboard_delete_event), keyboard);
 }
 
 static void _new_mode_embedded(Keyboard * keyboard)
@@ -501,8 +501,8 @@ static void _new_mode_embedded(Keyboard * keyboard)
 	keyboard->height = 0;
 	keyboard->x = 0;
 	keyboard->y = 0;
-	g_signal_connect_swapped(G_OBJECT(keyboard->window), "embedded",
-			G_CALLBACK(on_keyboard_embedded), keyboard);
+	g_signal_connect_swapped(keyboard->window, "embedded", G_CALLBACK(
+				on_keyboard_embedded), keyboard);
 }
 
 static void _new_mode_popup(Keyboard * keyboard)
@@ -519,8 +519,8 @@ static void _new_mode_popup(Keyboard * keyboard)
 	gtk_window_move(GTK_WINDOW(keyboard->window), keyboard->x, keyboard->y);
 	gtk_widget_set_size_request(keyboard->window, keyboard->width,
 			keyboard->height);
-	g_signal_connect_swapped(G_OBJECT(keyboard->window), "delete-event",
-			G_CALLBACK(on_keyboard_delete_event), keyboard);
+	g_signal_connect_swapped(keyboard->window, "delete-event", G_CALLBACK(
+				on_keyboard_delete_event), keyboard);
 }
 
 static void _new_mode_windowed(Keyboard * keyboard)
@@ -537,8 +537,8 @@ static void _new_mode_windowed(Keyboard * keyboard)
 			"input-keyboard");
 #endif
 	gtk_window_set_title(GTK_WINDOW(keyboard->window), _("Keyboard"));
-	g_signal_connect_swapped(G_OBJECT(keyboard->window), "delete-event",
-			G_CALLBACK(on_keyboard_delete_event), keyboard);
+	g_signal_connect_swapped(keyboard->window, "delete-event", G_CALLBACK(
+				on_keyboard_delete_event), keyboard);
 }
 
 
