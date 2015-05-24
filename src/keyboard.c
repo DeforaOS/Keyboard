@@ -555,6 +555,13 @@ void keyboard_delete(Keyboard * keyboard)
 
 
 /* accessors */
+/* keyboard_get_widget */
+GtkWidget * keyboard_get_widget(Keyboard * keyboard)
+{
+	return keyboard->window;
+}
+
+
 /* keyboard_is_visible */
 gboolean keyboard_is_visible(Keyboard * keyboard)
 {

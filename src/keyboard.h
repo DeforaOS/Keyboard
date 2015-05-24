@@ -49,6 +49,8 @@ Keyboard * keyboard_new(KeyboardPrefs * prefs);
 void keyboard_delete(Keyboard * keyboard);
 
 /* accessors */
+GtkWidget * keyboard_get_widget(Keyboard * keyboard);
+
 gboolean keyboard_is_visible(Keyboard * keyboard);
 
 /* XXX be more explicit */
