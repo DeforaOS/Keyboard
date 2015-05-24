@@ -335,6 +335,7 @@ static void _new_mode(Keyboard * keyboard, KeyboardMode mode);
 static void _new_mode_docked(Keyboard * keyboard);
 static void _new_mode_embedded(Keyboard * keyboard);
 static void _new_mode_popup(Keyboard * keyboard);
+static void _new_mode_widget(Keyboard * keyboard);
 static void _new_mode_windowed(Keyboard * keyboard);
 
 Keyboard * keyboard_new(KeyboardPrefs * prefs)
@@ -418,7 +419,8 @@ Keyboard * keyboard_new(KeyboardPrefs * prefs)
 					KLS_COUNT, KLS_SPECIAL)) != NULL)
 		gtk_box_pack_start(GTK_BOX(vbox), widget, TRUE, TRUE, 0);
 	gtk_widget_show(vbox);
-	if(prefs->mode != KEYBOARD_MODE_EMBEDDED)
+	if(prefs->mode != KEYBOARD_MODE_EMBEDDED
+			&& prefs->mode != KEYBOARD_MODE_WIDGET)
 	{
 #if GTK_CHECK_VERSION(2, 10, 0)
 		/* create the systray icon */
@@ -464,6 +466,9 @@ static void _new_mode(Keyboard * keyboard, KeyboardMode mode)
 			break;
 		case KEYBOARD_MODE_POPUP:
 			_new_mode_popup(keyboard);
+			break;
+		case KEYBOARD_MODE_WIDGET:
+			_new_mode_widget(keyboard);
 			break;
 		case KEYBOARD_MODE_WINDOWED:
 			_new_mode_windowed(keyboard);
@@ -521,6 +526,20 @@ static void _new_mode_popup(Keyboard * keyboard)
 			keyboard->height);
 	g_signal_connect_swapped(keyboard->window, "delete-event", G_CALLBACK(
 				on_keyboard_delete_event), keyboard);
+}
+
+static void _new_mode_widget(Keyboard * keyboard)
+{
+	/* XXX hack */
+#if GTK_CHECK_VERSION(3, 0, 0)
+	keyboard->window = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 4);
+#else
+	keyboard->window = gtk_hbox_new(FALSE, 4);
+#endif
+	keyboard->width = 0;
+	keyboard->height = 0;
+	keyboard->x = 0;
+	keyboard->y = 0;
 }
 
 static void _new_mode_windowed(Keyboard * keyboard)
@@ -633,7 +652,8 @@ void keyboard_show(Keyboard * keyboard, gboolean show)
 				keyboard->x, keyboard->y);
 #endif
 	}
-	else if(keyboard->mode != KEYBOARD_MODE_EMBEDDED)
+	else if(keyboard->mode != KEYBOARD_MODE_EMBEDDED
+			&& keyboard->mode != KEYBOARD_MODE_WIDGET)
 		gtk_widget_hide(keyboard->window);
 }
 
