@@ -580,7 +580,7 @@ void keyboard_set_layout(Keyboard * keyboard, unsigned int which)
 				== NULL)
 			continue;
 		else if(i == which)
-			gtk_widget_show_all(widget);
+			gtk_widget_show(widget);
 		else
 			gtk_widget_hide(widget);
 }
@@ -733,7 +733,11 @@ static GtkWidget * _keyboard_add_layout(Keyboard * keyboard,
 	g_signal_connect(widget, "clicked", G_CALLBACK(_layout_clicked),
 			keyboard);
 	keyboard_layout_add_widget(layout, 3, 0, 3, widget);
-	return keyboard_layout_get_widget(layout);
+	widget = keyboard_layout_get_widget(layout);
+	gtk_widget_show_all(widget);
+	gtk_widget_set_no_show_all(widget, TRUE);
+	gtk_widget_hide(widget);
+	return widget;
 }
 
 static void _layout_clicked(GtkWidget * widget, gpointer data)
