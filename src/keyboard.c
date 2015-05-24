@@ -29,6 +29,7 @@ static char const _license[] =
 #if GTK_CHECK_VERSION(3, 0, 0)
 # include <gtk/gtkx.h>
 #endif
+#include <System.h>
 #include <Desktop.h>
 #define XK_LATIN1
 #define XK_MISCELLANY
@@ -350,7 +351,7 @@ Keyboard * keyboard_new(KeyboardPrefs * prefs)
 #ifdef DEBUG
 	fprintf(stderr, "DEBUG: %s()\n", __func__);
 #endif
-	if((keyboard = malloc(sizeof(*keyboard))) == NULL)
+	if((keyboard = object_new(sizeof(*keyboard))) == NULL)
 		return NULL;
 	keyboard->mode = prefs->mode;
 	keyboard->layouts = NULL;
@@ -549,7 +550,7 @@ void keyboard_delete(Keyboard * keyboard)
 #endif
 	gtk_widget_destroy(keyboard->window);
 	pango_font_description_free(keyboard->font);
-	free(keyboard);
+	object_delete(keyboard);
 }
 
 
