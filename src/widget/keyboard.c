@@ -46,6 +46,8 @@ static void _keyboard_destroy(KeyboardWidget * keyboard);
 
 static GtkWidget * _keyboard_get_widget(KeyboardWidget * keyboard);
 
+static int _keyboard_set_property(KeyboardWidget * keyboard, va_list ap);
+
 
 /* public */
 /* variables */
@@ -56,7 +58,8 @@ DesktopWidgetDefinition widget =
 	NULL,
 	_keyboard_init,
 	_keyboard_destroy,
-	_keyboard_get_widget
+	_keyboard_get_widget,
+	_keyboard_set_property
 };
 
 
@@ -97,4 +100,25 @@ static void _keyboard_destroy(KeyboardWidget * keyboard)
 static GtkWidget * _keyboard_get_widget(KeyboardWidget * keyboard)
 {
 	return keyboard_get_widget(keyboard->keyboard);
+}
+
+
+/* keyboard_set_property */
+static int _keyboard_set_property(KeyboardWidget * keyboard, va_list ap)
+{
+	String const * property;
+	unsigned int u;
+
+	while((property = va_arg(ap, String const *)) != NULL)
+		if(strcmp(property, "layout") == 0)
+		{
+			u = va_arg(ap, unsigned int);
+			keyboard_set_layout(keyboard->keyboard, u);
+		}
+		else if(strcmp(property, "page") == 0)
+		{
+			u = va_arg(ap, unsigned int);
+			keyboard_set_page(keyboard->keyboard, u);
+		}
+	return 0;
 }
