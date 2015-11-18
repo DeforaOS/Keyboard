@@ -745,7 +745,7 @@ static GtkWidget * _keyboard_add_layout(Keyboard * keyboard,
 	l = (section + 1) % definitions_cnt;
 	label = gtk_label_new(definitions[l].label);
 	gtk_widget_modify_fg(label, GTK_STATE_NORMAL, &black);
-	gtk_widget_modify_font(label, keyboard->font);
+	gtk_widget_override_font(label, keyboard->font);
 	widget = gtk_button_new();
 	gtk_widget_modify_bg(widget, GTK_STATE_NORMAL, &white);
 	gtk_container_add(GTK_CONTAINER(widget), label);
