@@ -346,7 +346,11 @@ Keyboard * keyboard_new(KeyboardPrefs * prefs)
 	GtkWidget * vbox;
 	GtkWidget * widget;
 	PangoFontDescription * bold;
+#if GTK_CHECK_VERSION(3, 0, 0)
+	GdkRGBA gray = { 0.56, 0.56, 0.56, 1.0 };
+#else
 	GdkColor gray = { 0x90909090, 0x9090, 0x9090, 0x9090 };
+#endif
 	unsigned long id;
 
 #ifdef DEBUG
@@ -366,7 +370,12 @@ Keyboard * keyboard_new(KeyboardPrefs * prefs)
 		gdk_screen_get_monitor_geometry(screen, 0, &keyboard->geometry);
 	/* windows */
 	_new_mode(keyboard, prefs->mode);
+#if GTK_CHECK_VERSION(3, 0, 0)
+	gtk_widget_override_background_color(keyboard->window,
+			GTK_STATE_FLAG_NORMAL, &gray);
+#else
 	gtk_widget_modify_bg(keyboard->window, GTK_STATE_NORMAL, &gray);
+#endif
 	keyboard->icon = NULL;
 	keyboard->ab_window = NULL;
 	/* fonts */
@@ -381,11 +390,7 @@ Keyboard * keyboard_new(KeyboardPrefs * prefs)
 	}
 	bold = pango_font_description_new();
 	pango_font_description_set_weight(bold, PANGO_WEIGHT_BOLD);
-#if GTK_CHECK_VERSION(3, 0, 0)
 	vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
-#else
-	vbox = gtk_vbox_new(FALSE, 4);
-#endif
 	gtk_container_add(GTK_CONTAINER(keyboard->window), vbox);
 	/* menubar */
 	if(prefs->mode == KEYBOARD_MODE_WINDOWED)
@@ -398,11 +403,7 @@ Keyboard * keyboard_new(KeyboardPrefs * prefs)
 		gtk_widget_show_all(widget);
 		gtk_box_pack_start(GTK_BOX(vbox), widget, FALSE, FALSE, 0);
 		/* XXX border hack */
-#if GTK_CHECK_VERSION(3, 0, 0)
 		widget = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
-#else
-		widget = gtk_vbox_new(FALSE, 4);
-#endif
 		gtk_container_set_border_width(GTK_CONTAINER(widget), 4);
 		gtk_box_pack_start(GTK_BOX(vbox), widget, TRUE, TRUE, 0);
 		gtk_widget_show(vbox);
@@ -714,9 +715,15 @@ static GtkWidget * _keyboard_add_layout(Keyboard * keyboard,
 	GtkWidget * label;
 	GtkWidget * widget;
 	unsigned long l;
+#if GTK_CHECK_VERSION(3, 0, 0)
+	gboolean dark = FALSE;
+	GdkRGBA black = { 0.0, 0.0, 0.0, 1.0 };
+	GdkRGBA white = { 1.0, 1.0, 1.0, 1.0 };
+#else
 	GdkColor black = { 0x00000000, 0x0000, 0x0000, 0x0000 };
 	GdkColor white = { 0xffffffff, 0xffff, 0xffff, 0xffff };
 	GdkColor gray = { 0xd0d0d0d0, 0xd0d0, 0xd0d0, 0xd0d0 };
+#endif
 
 	if((p = realloc(keyboard->layouts, sizeof(*p) * (keyboard->layouts_cnt
 						+ 1))) == NULL)
@@ -724,6 +731,10 @@ static GtkWidget * _keyboard_add_layout(Keyboard * keyboard,
 	keyboard->layouts = p;
 	if((layout = keyboard_layout_new()) == NULL)
 		return NULL;
+#if GTK_CHECK_VERSION(3, 0, 0)
+	g_object_get(gtk_settings_get_default(),
+			"gtk-application-prefer-dark-theme", &dark, NULL);
+#endif
 	keyboard->layouts[keyboard->layouts_cnt++] = layout;
 	keys = definitions[section].keys;
 	for(i = 0; keys[i].width != 0; i++)
@@ -732,22 +743,36 @@ static GtkWidget * _keyboard_add_layout(Keyboard * keyboard,
 				keys[i].keysym, keys[i].label);
 		if(key == NULL)
 			continue;
+#if !GTK_CHECK_VERSION(3, 0, 0)
 		keyboard_key_set_background(key, &gray);
 		keyboard_key_set_foreground(key, &black);
+#endif
 		keyboard_key_set_font(key, keyboard->font);
 		for(; keys[i + 1].width == 0 && keys[i + 1].modifier != 0; i++)
 		{
+#if !GTK_CHECK_VERSION(3, 0, 0)
 			keyboard_key_set_background(key, &white);
+#endif
 			keyboard_key_set_modifier(key, keys[i + 1].modifier,
 					keys[i + 1].keysym, keys[i + 1].label);
 		}
 	}
 	l = (section + 1) % definitions_cnt;
 	label = gtk_label_new(definitions[l].label);
+#if GTK_CHECK_VERSION(3, 0, 0)
+	gtk_widget_override_color(label, GTK_STATE_FLAG_NORMAL,
+			dark ? &white : &black);
+#else
 	gtk_widget_modify_fg(label, GTK_STATE_NORMAL, &black);
+#endif
 	gtk_widget_override_font(label, keyboard->font);
 	widget = gtk_button_new();
+#if GTK_CHECK_VERSION(3, 0, 0)
+	gtk_widget_override_background_color(widget, GTK_STATE_FLAG_NORMAL,
+			dark ? &black : &white);
+#else
 	gtk_widget_modify_bg(widget, GTK_STATE_NORMAL, &white);
+#endif
 	gtk_container_add(GTK_CONTAINER(widget), label);
 	g_object_set_data(G_OBJECT(widget), "layout", (void *)l);
 	g_signal_connect(widget, "clicked", G_CALLBACK(_layout_clicked),

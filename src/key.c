@@ -18,6 +18,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <gdk/gdkx.h>
+#include <Desktop.h>
 #include "common.h"
 #include "key.h"
 
@@ -127,6 +128,18 @@ GtkWidget * keyboard_key_get_widget(KeyboardKey * key)
 
 
 /* keyboard_key_set_background */
+# if GTK_CHECK_VERSION(3, 0, 0)
+void keyboard_key_set_background(KeyboardKey * key, GdkRGBA * color)
+{
+	_keyboard_key_create_popup(key);
+	gtk_widget_override_background_color(key->widget, GTK_STATE_FLAG_NORMAL,
+			color);
+	gtk_widget_override_background_color(key->popup, GTK_STATE_FLAG_NORMAL,
+			color);
+	gtk_widget_override_background_color(key->button, GTK_STATE_FLAG_NORMAL,
+			color);
+}
+# else
 void keyboard_key_set_background(KeyboardKey * key, GdkColor * color)
 {
 	_keyboard_key_create_popup(key);
@@ -134,24 +147,34 @@ void keyboard_key_set_background(KeyboardKey * key, GdkColor * color)
 	gtk_widget_modify_bg(key->popup, GTK_STATE_NORMAL, color);
 	gtk_widget_modify_bg(key->button, GTK_STATE_NORMAL, color);
 }
+#endif
 
 
 /* keyboard_key_set_font */
 void keyboard_key_set_font(KeyboardKey * key, PangoFontDescription * font)
 {
 	_keyboard_key_create_popup(key);
-	gtk_widget_modify_font(key->label, font);
-	gtk_widget_modify_font(gtk_bin_get_child(GTK_BIN(key->button)), font);
+	gtk_widget_override_font(key->label, font);
+	gtk_widget_override_font(gtk_bin_get_child(GTK_BIN(key->button)), font);
 }
 
 
 /* keyboard_key_set_foreground */
+#if GTK_CHECK_VERSION(3, 0, 0)
+void keyboard_key_set_foreground(KeyboardKey * key, GdkRGBA * color)
+{
+	_keyboard_key_create_popup(key);
+	gtk_widget_override_color(key->label, GTK_STATE_FLAG_NORMAL, color);
+	gtk_widget_override_color(key->button, GTK_STATE_FLAG_NORMAL, color);
+}
+#else
 void keyboard_key_set_foreground(KeyboardKey * key, GdkColor * color)
 {
 	_keyboard_key_create_popup(key);
 	gtk_widget_modify_fg(key->label, GTK_STATE_NORMAL, color);
 	gtk_widget_modify_fg(key->button, GTK_STATE_NORMAL, color);
 }
+#endif
 
 
 /* keyboard_key_set_modifier */

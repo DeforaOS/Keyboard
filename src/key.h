@@ -36,9 +36,17 @@ GtkWidget * keyboard_key_get_label_widget(KeyboardKey * key);
 GtkWidget * keyboard_key_get_widget(KeyboardKey * key);
 unsigned int keyboard_key_get_width(KeyboardKey * key);
 
+# if GTK_CHECK_VERSION(3, 0, 0)
+void keyboard_key_set_background(KeyboardKey * key, GdkRGBA * color);
+# else
 void keyboard_key_set_background(KeyboardKey * key, GdkColor * color);
+# endif
 void keyboard_key_set_font(KeyboardKey * key, PangoFontDescription * font);
+# if GTK_CHECK_VERSION(3, 0, 0)
+void keyboard_key_set_foreground(KeyboardKey * key, GdkRGBA * color);
+# else
 void keyboard_key_set_foreground(KeyboardKey * key, GdkColor * color);
+# endif
 int keyboard_key_set_modifier(KeyboardKey * key, unsigned int modifier,
 		unsigned int keysym, char const * label);
 
