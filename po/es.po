@@ -8,48 +8,49 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Keyboard 0.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-11 23:35+0200\n"
+"POT-Creation-Date: 2016-03-12 02:20+0100\n"
 "PO-Revision-Date: 2014-12-28 20:19+0100\n"
 "Last-Translator: Pierre Pronchery <khorben@defora.org>\n"
 "Language-Team: Spanish\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/keyboard.c:103
+#: ../src/keyboard.c:104
 msgid "_Quit"
 msgstr ""
 
-#: ../src/keyboard.c:110
+#: ../src/keyboard.c:111
 msgid "_Hide"
 msgstr ""
 
-#: ../src/keyboard.c:118 ../src/keyboard.c:120
+#: ../src/keyboard.c:119 ../src/keyboard.c:121
 msgid "_About"
-msgstr ""
-
-#: ../src/keyboard.c:127
-msgid "_File"
-msgstr ""
+msgstr "_Acerca de"
 
 #: ../src/keyboard.c:128
-msgid "_View"
-msgstr ""
+msgid "_File"
+msgstr "_Archivo"
 
 #: ../src/keyboard.c:129
-msgid "_Help"
-msgstr ""
+msgid "_View"
+msgstr "_Ver"
 
-#: ../src/keyboard.c:420
+#: ../src/keyboard.c:130
+msgid "_Help"
+msgstr "_Ayuda"
+
+#: ../src/keyboard.c:432
 msgid "Virtual keyboard"
 msgstr ""
 
-#: ../src/keyboard.c:530
+#: ../src/keyboard.c:559
 msgid "Keyboard"
 msgstr ""
 
-#: ../src/keyboard.c:641
+#: ../src/keyboard.c:678
 msgid "Virtual keyboard for the DeforaOS desktop"
 msgstr ""
 
@@ -60,9 +61,10 @@ msgid ""
 "  -S\tShow the keyboard\n"
 msgstr ""
 
-#: ../src/main.c:76
+#: ../src/main.c:79
+#, c-format
 msgid ""
-"Usage: keyboard [-d|-p|-w|-x][-f font][-m monitor][-n]\n"
+"Usage: %s [-d|-p|-w|-x][-f font][-m monitor][-n]\n"
 "  -d\tStart in docked mode\n"
 "  -p\tStart as a popup window\n"
 "  -w\tStart in windowed mode\n"
