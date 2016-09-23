@@ -420,8 +420,14 @@ Keyboard * keyboard_new(KeyboardPrefs * prefs)
 					KLS_COUNT, KLS_SPECIAL)) != NULL)
 		gtk_box_pack_start(GTK_BOX(vbox), widget, TRUE, TRUE, 0);
 	gtk_widget_show(vbox);
-	if(prefs->mode != KEYBOARD_MODE_EMBEDDED
-			&& prefs->mode != KEYBOARD_MODE_WIDGET)
+	if(prefs->mode == KEYBOARD_MODE_EMBEDDED)
+	{
+		/* print the window ID and force a flush */
+		id = gtk_plug_get_id(GTK_PLUG(keyboard->window));
+		printf("%lu\n", id);
+		fclose(stdout);
+	}
+	else if(prefs->mode != KEYBOARD_MODE_WIDGET)
 	{
 #if GTK_CHECK_VERSION(2, 10, 0)
 		/* create the systray icon */
@@ -439,13 +445,6 @@ Keyboard * keyboard_new(KeyboardPrefs * prefs)
 		/* show the window */
 		if(prefs->wait == 0)
 			gtk_widget_show(keyboard->window);
-	}
-	else
-	{
-		/* print the window ID and force a flush */
-		id = gtk_plug_get_id(GTK_PLUG(keyboard->window));
-		printf("%lu\n", id);
-		fclose(stdout);
 	}
 	keyboard_set_layout(keyboard, KLS_LETTERS);
 	pango_font_description_free(bold);
