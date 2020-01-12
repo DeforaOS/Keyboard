@@ -773,8 +773,8 @@ Keyboard * keyboard_new(KeyboardPrefs * prefs)
 			typename = &_keyboard_layout_type_name[i];
 			if(strcasecmp(prefs->layout, typename->name) == 0)
 			{
-				layout[0].keys = _keyboard_layout_letters_definition[typename->type];
-				layout[2].keys = _keyboard_layout_special_definition[typename->type];
+				layout[KLS_LETTERS].keys = _keyboard_layout_letters_definition[typename->type];
+				layout[KLS_SPECIAL].keys = _keyboard_layout_special_definition[typename->type];
 				break;
 			}
 			typename = NULL;
