@@ -50,6 +50,10 @@
 # define LOCALEDIR	DATADIR "/locale"
 #endif
 
+#ifndef PROGNAME_KEYBOARDCTL
+# define PROGNAME_KEYBOARDCTL	"keyboardctl"
+#endif
+
 
 /* keyboardctl */
 /* private */
@@ -71,7 +75,7 @@ static int _keyboardctl(KeyboardMessage message, unsigned int arg1)
 /* error */
 static int _error(char const * message, int ret)
 {
-	fputs("keyboardctl: ", stderr);
+	fputs(PROGNAME_KEYBOARDCTL ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -80,9 +84,9 @@ static int _error(char const * message, int ret)
 /* usage */
 static int _usage(void)
 {
-	fputs(_("Usage: keyboardctl [-H|-S]\n"
+	fprintf(stderr, _("Usage: %s [-H|-S]\n"
 "  -H	Hide the keyboard\n"
-"  -S	Show the keyboard\n"), stderr);
+"  -S	Show the keyboard\n"), PROGNAME_KEYBOARDCTL);
 	return 1;
 }
 
