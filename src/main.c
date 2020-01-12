@@ -40,17 +40,17 @@
 #define _(string) gettext(string)
 
 /* constants */
-#ifndef PROGNAME
-# define PROGNAME	"keyboard"
+#ifndef PROGNAME_KEYBOARD
+# define PROGNAME_KEYBOARD	"keyboard"
 #endif
 #ifndef PREFIX
-# define PREFIX		"/usr/local"
+# define PREFIX			"/usr/local"
 #endif
 #ifndef DATADIR
-# define DATADIR	PREFIX "/share"
+# define DATADIR		PREFIX "/share"
 #endif
 #ifndef LOCALEDIR
-# define LOCALEDIR	DATADIR "/locale"
+# define LOCALEDIR		DATADIR "/locale"
 #endif
 
 
@@ -80,7 +80,7 @@ static int _keyboard(KeyboardPrefs * prefs)
 /* error */
 static int _error(char const * message, int ret)
 {
-	fputs(PROGNAME ": ", stderr);
+	fputs(PROGNAME_KEYBOARD ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -96,7 +96,8 @@ static int _usage(void)
 "  -x	Start in embedded mode\n"
 "  -f	Set the font used for the keys\n"
 "  -m	Place on a particular monitor (in docked or popup mode)\n"
-"  -n	Start without showing up directly (if not embedded)\n"), PROGNAME);
+"  -n	Start without showing up directly (if not embedded)\n"),
+			PROGNAME_KEYBOARD);
 	return 1;
 }
 
