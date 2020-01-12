@@ -89,8 +89,10 @@ static int _error(char const * message, int ret)
 /* usage */
 static int _usage(void)
 {
-	fprintf(stderr, _("Usage: %s [-d|-p|-w|-x][-f font][-m monitor][-n]\n"
+	fprintf(stderr, _("Usage: %s [-d|-p|-w|-x][-f font][-l layout]"
+"[-m monitor][-n]\n"
 "  -d	Start in docked mode\n"
+"  -l	Select a different layout\n"
 "  -p	Start as a popup window\n"
 "  -w	Start in windowed mode\n"
 "  -x	Start in embedded mode\n"
@@ -117,7 +119,7 @@ int main(int argc, char * argv[])
 	textdomain(PACKAGE);
 	memset(&prefs, 0, sizeof(prefs));
 	gtk_init(&argc, &argv);
-	while((o = getopt(argc, argv, "df:m:npwx")) != -1)
+	while((o = getopt(argc, argv, "df:l:m:npwx")) != -1)
 		switch(o)
 		{
 			case 'd':
@@ -125,6 +127,9 @@ int main(int argc, char * argv[])
 				break;
 			case 'f':
 				prefs.font = optarg;
+				break;
+			case 'l':
+				prefs.layout = optarg;
 				break;
 			case 'm':
 				prefs.monitor = strtol(optarg, &p, 10);

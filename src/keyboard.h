@@ -53,6 +53,7 @@ typedef struct _KeyboardPrefs
 {
 	int monitor;
 	char const * font;
+	char const * layout;
 	KeyboardMode mode;
 	int wait;
 } KeyboardPrefs;

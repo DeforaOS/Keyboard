@@ -33,9 +33,11 @@ static char const _license[] =
 
 
 
+#include <stdarg.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <strings.h>
 #include <libintl.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
@@ -54,6 +56,10 @@ static char const _license[] =
 #include "../config.h"
 #define _(string) gettext(string)
 #define N_(string) (string)
+
+#ifndef PROGNAME_KEYBOARD
+# define PROGNAME_KEYBOARD	"keyboard"
+#endif
 
 
 /* Keyboard */
@@ -104,12 +110,34 @@ typedef struct _KeyboardLayoutDefinition
 	KeyboardKeyDefinition const * keys;
 } KeyboardLayoutDefinition;
 
+typedef enum _KeyboardLayoutType
+{
+	KLT_QWERTY = 0,
+	KLT_QWERTZ,
+	KLT_AZERTY
+} KeyboardLayoutType;
+#define KLT_LAST KLT_AZERTY
+#define KLT_COUNT (KLT_LAST + 1)
+
+typedef struct _KeyboardLayoutTypeName
+{
+	KeyboardLayoutType type;
+	char const * name;
+} KeyboardLayoutTypeName;
+
 
 /* constants */
 static char const * _authors[] =
 {
 	"Pierre Pronchery <khorben@defora.org>",
 	NULL
+};
+
+static const KeyboardLayoutTypeName _keyboard_layout_type_name[] =
+{
+	{ KLT_QWERTY,	"us"	},
+	{ KLT_QWERTZ,	"de"	},
+	{ KLT_AZERTY,	"fr"	}
 };
 
 static const DesktopMenu _keyboard_menu_file[] =
@@ -146,7 +174,7 @@ static const DesktopMenubar _keyboard_menubar[] =
 
 
 /* variables */
-static KeyboardKeyDefinition const _keyboard_layout_letters[] =
+static KeyboardKeyDefinition const _keyboard_layout_letters_qwerty[] =
 {
 	{ 0, 2, 0, XK_q, "q" },
 	{ 0, 0, XK_Shift_L, XK_Q, "Q" },
@@ -214,6 +242,153 @@ static KeyboardKeyDefinition const _keyboard_layout_letters[] =
 	{ 3, 3, 0, XK_Return, "\xe2\x86\xb2" },
 	{ 3, 3, 0, XK_BackSpace, "\xe2\x8c\xab" },
 	{ 0, 0, 0, 0, NULL }
+};
+
+static KeyboardKeyDefinition const _keyboard_layout_letters_qwertz[] =
+{
+	{ 0, 2, 0, XK_q, "q" },
+	{ 0, 0, XK_Shift_L, XK_Q, "Q" },
+	{ 0, 2, 0, XK_w, "w" },
+	{ 0, 0, XK_Shift_L, XK_W, "W" },
+	{ 0, 2, 0, XK_e, "e" },
+	{ 0, 0, XK_Shift_L, XK_E, "E" },
+	{ 0, 2, 0, XK_r, "r" },
+	{ 0, 0, XK_Shift_L, XK_R, "R" },
+	{ 0, 2, 0, XK_t, "t" },
+	{ 0, 0, XK_Shift_L, XK_T, "T" },
+	{ 0, 2, 0, XK_z, "z" },
+	{ 0, 0, XK_Shift_L, XK_Z, "Z" },
+	{ 0, 2, 0, XK_u, "u" },
+	{ 0, 0, XK_Shift_L, XK_U, "U" },
+	{ 0, 2, 0, XK_i, "i" },
+	{ 0, 0, XK_Shift_L, XK_I, "I" },
+	{ 0, 2, 0, XK_o, "o" },
+	{ 0, 0, XK_Shift_L, XK_O, "O" },
+	{ 0, 2, 0, XK_p, "p" },
+	{ 0, 0, XK_Shift_L, XK_P, "P" },
+	{ 1, 1, 0, 0, NULL },
+	{ 1, 2, 0, XK_a, "a" },
+	{ 1, 0, XK_Shift_L, XK_A, "A" },
+	{ 1, 2, 0, XK_s, "s" },
+	{ 1, 0, XK_Shift_L, XK_S, "S" },
+	{ 1, 2, 0, XK_d, "d" },
+	{ 1, 0, XK_Shift_L, XK_D, "D" },
+	{ 1, 2, 0, XK_f, "f" },
+	{ 1, 0, XK_Shift_L, XK_F, "F" },
+	{ 1, 2, 0, XK_g, "g" },
+	{ 1, 0, XK_Shift_L, XK_G, "G" },
+	{ 1, 2, 0, XK_h, "h" },
+	{ 1, 0, XK_Shift_L, XK_H, "H" },
+	{ 1, 2, 0, XK_j, "j" },
+	{ 1, 0, XK_Shift_L, XK_J, "J" },
+	{ 1, 2, 0, XK_k, "k" },
+	{ 1, 0, XK_Shift_L, XK_K, "K" },
+	{ 1, 2, 0, XK_l, "l" },
+	{ 1, 0, XK_Shift_L, XK_L, "L" },
+	{ 2, 2, 0, XK_Shift_L, "\xe2\x87\xa7" },
+	{ 2, 2, 0, XK_y, "y" },
+	{ 2, 0, XK_Shift_L, XK_Y, "Y" },
+	{ 2, 2, 0, XK_x, "x" },
+	{ 2, 0, XK_Shift_L, XK_X, "X" },
+	{ 2, 2, 0, XK_c, "c" },
+	{ 2, 0, XK_Shift_L, XK_C, "C" },
+	{ 2, 2, 0, XK_v, "v" },
+	{ 2, 0, XK_Shift_L, XK_V, "V" },
+	{ 2, 2, 0, XK_b, "b" },
+	{ 2, 0, XK_Shift_L, XK_B, "B" },
+	{ 2, 2, 0, XK_n, "n" },
+	{ 2, 0, XK_Shift_L, XK_N, "N" },
+	{ 2, 2, 0, XK_m, "m" },
+	{ 2, 0, XK_Shift_L, XK_M, "M" },
+	{ 2, 2, 0, XK_comma, "," },
+	{ 2, 0, XK_Shift_L, XK_comma, "<" },
+	{ 2, 2, 0, XK_period, "." },
+	{ 2, 0, XK_Shift_L, XK_period, ">" },
+	{ 3, 3, 0, 0, NULL },
+	{ 3, 3, 0, XK_Control_L, "Ctrl" },
+	{ 3, 3, 0, XK_Alt_L, "Alt" },
+	{ 3, 5, 0, XK_space, " " },
+	{ 3, 0, XK_Shift_L, XK_space, " " },
+	{ 3, 3, 0, XK_Return, "\xe2\x86\xb2" },
+	{ 3, 3, 0, XK_BackSpace, "\xe2\x8c\xab" },
+	{ 0, 0, 0, 0, NULL }
+};
+
+static KeyboardKeyDefinition const _keyboard_layout_letters_azerty[] =
+{
+	{ 0, 2, 0, XK_a, "a" },
+	{ 0, 0, XK_Shift_L, XK_A, "A" },
+	{ 0, 2, 0, XK_z, "z" },
+	{ 0, 0, XK_Shift_L, XK_Z, "Z" },
+	{ 0, 2, 0, XK_e, "e" },
+	{ 0, 0, XK_Shift_L, XK_E, "E" },
+	{ 0, 2, 0, XK_r, "r" },
+	{ 0, 0, XK_Shift_L, XK_R, "R" },
+	{ 0, 2, 0, XK_t, "t" },
+	{ 0, 0, XK_Shift_L, XK_T, "T" },
+	{ 0, 2, 0, XK_y, "y" },
+	{ 0, 0, XK_Shift_L, XK_Y, "Y" },
+	{ 0, 2, 0, XK_u, "u" },
+	{ 0, 0, XK_Shift_L, XK_U, "U" },
+	{ 0, 2, 0, XK_i, "i" },
+	{ 0, 0, XK_Shift_L, XK_I, "I" },
+	{ 0, 2, 0, XK_o, "o" },
+	{ 0, 0, XK_Shift_L, XK_O, "O" },
+	{ 0, 2, 0, XK_p, "p" },
+	{ 0, 0, XK_Shift_L, XK_P, "P" },
+	{ 1, 1, 0, 0, NULL },
+	{ 1, 2, 0, XK_q, "q" },
+	{ 1, 0, XK_Shift_L, XK_Q, "Q" },
+	{ 1, 2, 0, XK_s, "s" },
+	{ 1, 0, XK_Shift_L, XK_S, "S" },
+	{ 1, 2, 0, XK_d, "d" },
+	{ 1, 0, XK_Shift_L, XK_D, "D" },
+	{ 1, 2, 0, XK_f, "f" },
+	{ 1, 0, XK_Shift_L, XK_F, "F" },
+	{ 1, 2, 0, XK_g, "g" },
+	{ 1, 0, XK_Shift_L, XK_G, "G" },
+	{ 1, 2, 0, XK_h, "h" },
+	{ 1, 0, XK_Shift_L, XK_H, "H" },
+	{ 1, 2, 0, XK_j, "j" },
+	{ 1, 0, XK_Shift_L, XK_J, "J" },
+	{ 1, 2, 0, XK_k, "k" },
+	{ 1, 0, XK_Shift_L, XK_K, "K" },
+	{ 1, 2, 0, XK_l, "l" },
+	{ 1, 0, XK_Shift_L, XK_L, "L" },
+	{ 2, 2, 0, XK_Shift_L, "\xe2\x87\xa7" },
+	{ 2, 2, 0, XK_z, "z" },
+	{ 2, 0, XK_Shift_L, XK_Z, "Z" },
+	{ 2, 2, 0, XK_x, "x" },
+	{ 2, 0, XK_Shift_L, XK_X, "X" },
+	{ 2, 2, 0, XK_c, "c" },
+	{ 2, 0, XK_Shift_L, XK_C, "C" },
+	{ 2, 2, 0, XK_v, "v" },
+	{ 2, 0, XK_Shift_L, XK_V, "V" },
+	{ 2, 2, 0, XK_b, "b" },
+	{ 2, 0, XK_Shift_L, XK_B, "B" },
+	{ 2, 2, 0, XK_n, "n" },
+	{ 2, 0, XK_Shift_L, XK_N, "N" },
+	{ 2, 2, 0, XK_m, "m" },
+	{ 2, 0, XK_Shift_L, XK_M, "M" },
+	{ 2, 2, 0, XK_comma, "," },
+	{ 2, 0, XK_Shift_L, XK_comma, "<" },
+	{ 2, 2, 0, XK_period, "." },
+	{ 2, 0, XK_Shift_L, XK_period, ">" },
+	{ 3, 3, 0, 0, NULL },
+	{ 3, 3, 0, XK_Control_L, "Ctrl" },
+	{ 3, 3, 0, XK_Alt_L, "Alt" },
+	{ 3, 5, 0, XK_space, " " },
+	{ 3, 0, XK_Shift_L, XK_space, " " },
+	{ 3, 3, 0, XK_Return, "\xe2\x86\xb2" },
+	{ 3, 3, 0, XK_BackSpace, "\xe2\x8c\xab" },
+	{ 0, 0, 0, 0, NULL }
+};
+
+static KeyboardKeyDefinition const * _keyboard_layout_letters_definition[KLT_COUNT] =
+{
+	_keyboard_layout_letters_qwerty,
+	_keyboard_layout_letters_qwertz,
+	_keyboard_layout_letters_azerty
 };
 
 static KeyboardKeyDefinition const _keyboard_layout_keypad[] =
@@ -327,18 +502,13 @@ static KeyboardKeyDefinition const _keyboard_layout_special[] =
 	{ 0, 0, 0, 0, NULL }
 };
 
-static KeyboardLayoutDefinition _keyboard_layout[KLS_COUNT] =
-{
-	{ "Abc", _keyboard_layout_letters	},
-	{ "123", _keyboard_layout_keypad	},
-	{ ",./", _keyboard_layout_special	}
-};
-
 
 /* prototypes */
 static GtkWidget * _keyboard_add_layout(Keyboard * keyboard,
 		KeyboardLayoutDefinition * definitions,
 		size_t definitions_cnt, KeyboardLayoutSection section);
+
+static void _keyboard_error(Keyboard * keyboard, char const * format, ...);
 
 
 /* public */
@@ -365,6 +535,14 @@ Keyboard * keyboard_new(KeyboardPrefs * prefs)
 	GdkColor gray = { 0x90909090, 0x9090, 0x9090, 0x9090 };
 #endif
 	unsigned long id;
+	KeyboardLayoutDefinition layout[KLS_COUNT] =
+	{
+		{ "Abc", _keyboard_layout_letters_qwerty	},
+		{ "123", _keyboard_layout_keypad		},
+		{ ",./", _keyboard_layout_special		}
+	};
+	size_t i;
+	KeyboardLayoutTypeName const * typename;
 
 #ifdef DEBUG
 	fprintf(stderr, "DEBUG: %s()\n", __func__);
@@ -423,14 +601,31 @@ Keyboard * keyboard_new(KeyboardPrefs * prefs)
 		vbox = widget;
 	}
 	/* layouts */
-	if((widget = _keyboard_add_layout(keyboard, _keyboard_layout,
-					KLS_COUNT, KLS_LETTERS)) != NULL)
+	if(prefs->layout != NULL)
+	{
+		for(i = 0; i < sizeof(_keyboard_layout_type_name)
+				/ sizeof(*_keyboard_layout_type_name); i++)
+		{
+			typename = &_keyboard_layout_type_name[i];
+			if(strcasecmp(prefs->layout, typename->name) == 0)
+			{
+				layout[0].keys = _keyboard_layout_letters_definition[typename->type];
+				break;
+			}
+			typename = NULL;
+		}
+		if(typename == NULL)
+			_keyboard_error(NULL, "%s: Unsupported layout",
+					prefs->layout);
+	}
+	if((widget = _keyboard_add_layout(keyboard, layout, KLS_COUNT,
+					KLS_LETTERS)) != NULL)
 		gtk_box_pack_start(GTK_BOX(vbox), widget, TRUE, TRUE, 0);
-	if((widget = _keyboard_add_layout(keyboard, _keyboard_layout,
-					KLS_COUNT, KLS_KEYPAD)) != NULL)
+	if((widget = _keyboard_add_layout(keyboard, layout, KLS_COUNT,
+					KLS_KEYPAD)) != NULL)
 		gtk_box_pack_start(GTK_BOX(vbox), widget, TRUE, TRUE, 0);
-	if((widget = _keyboard_add_layout(keyboard, _keyboard_layout,
-					KLS_COUNT, KLS_SPECIAL)) != NULL)
+	if((widget = _keyboard_add_layout(keyboard, layout, KLS_COUNT,
+					KLS_SPECIAL)) != NULL)
 		gtk_box_pack_start(GTK_BOX(vbox), widget, TRUE, TRUE, 0);
 	gtk_widget_show(vbox);
 	if(prefs->mode == KEYBOARD_MODE_EMBEDDED)
@@ -813,4 +1008,18 @@ static void _layout_clicked(GtkWidget * widget, gpointer data)
 			keyboard_set_layout(keyboard, section);
 			break;
 	}
+}
+
+
+/* keyboard_error */
+static void _keyboard_error(Keyboard * keyboard, char const * format, ...)
+{
+	va_list ap;
+
+	/* TODO add support for error dialog messages */
+	va_start(ap, format);
+	fprintf(stderr, "%s: ", PROGNAME_KEYBOARD);
+	vfprintf(stderr, format, ap);
+	fprintf(stderr, "\n");
+	va_end(ap);
 }
