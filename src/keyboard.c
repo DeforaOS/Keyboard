@@ -695,7 +695,7 @@ void keyboard_show_about(Keyboard * keyboard)
 	desktop_about_dialog_set_name(keyboard->ab_window, PACKAGE);
 	desktop_about_dialog_set_version(keyboard->ab_window, VERSION);
 	desktop_about_dialog_set_website(keyboard->ab_window,
-			"http://www.defora.org/");
+			"https://www.defora.org/");
 	g_signal_connect_swapped(keyboard->ab_window, "delete-event",
 			G_CALLBACK(_about_on_closex), keyboard);
 	gtk_widget_show(keyboard->ab_window);
