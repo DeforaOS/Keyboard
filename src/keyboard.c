@@ -450,13 +450,17 @@ static KeyboardKeyDefinition const _keyboard_layout_keypad[] =
 	{ 0, 0, 0, 0, NULL }
 };
 
-static KeyboardKeyDefinition const _keyboard_layout_special[] =
+static KeyboardKeyDefinition const _keyboard_layout_special_qwerty[] =
 {
 	{ 0, 3, 0, XK_Escape, "Esc" },
 	{ 0, 2, 0, XK_F1, "F1" },
+	{ 0, 0, XK_Shift_L, XK_F5, "F5" },
 	{ 0, 2, 0, XK_F2, "F2" },
+	{ 0, 0, XK_Shift_L, XK_F6, "F6" },
 	{ 0, 2, 0, XK_F3, "F3" },
+	{ 0, 0, XK_Shift_L, XK_F7, "F7" },
 	{ 0, 2, 0, XK_F4, "F4" },
+	{ 0, 0, XK_Shift_L, XK_F8, "F8" },
 	{ 0, 1, 0, 0, NULL },
 	{ 0, 2, 0, XK_F5, "F5" },
 	{ 0, 0, XK_Shift_L, XK_F9, "F9" },
@@ -488,7 +492,7 @@ static KeyboardKeyDefinition const _keyboard_layout_special[] =
 	{ 1, 0, XK_Shift_L, XK_parenright, ")" },
 	{ 2, 3, 0, XK_Tab, "\xe2\x86\xb9" },
 	{ 2, 2, 0, XK_grave, "`" },
-	{ 2, 0, XK_Shift_L, XK_grave, "~" },
+	{ 2, 0, XK_Shift_L, XK_asciitilde, "~" },
 	{ 2, 2, 0, XK_minus, "-" },
 	{ 2, 0, XK_Shift_L, XK_minus, "_" },
 	{ 2, 2, 0, XK_equal, "=" },
@@ -516,6 +520,150 @@ static KeyboardKeyDefinition const _keyboard_layout_special[] =
 	{ 3, 3, 0, XK_Return, "\xe2\x86\xb2" },
 	{ 3, 3, 0, XK_BackSpace, "\xe2\x8c\xab" },
 	{ 0, 0, 0, 0, NULL }
+};
+
+static KeyboardKeyDefinition const _keyboard_layout_special_qwertz[] =
+{
+	{ 0, 3, 0, XK_Escape, "Esc" },
+	{ 0, 2, 0, XK_F1, "F1" },
+	{ 0, 0, XK_Shift_L, XK_F5, "F5" },
+	{ 0, 2, 0, XK_F2, "F2" },
+	{ 0, 0, XK_Shift_L, XK_F6, "F6" },
+	{ 0, 2, 0, XK_F3, "F3" },
+	{ 0, 0, XK_Shift_L, XK_F7, "F7" },
+	{ 0, 2, 0, XK_F4, "F4" },
+	{ 0, 0, XK_Shift_L, XK_F8, "F8" },
+	{ 0, 1, 0, 0, NULL },
+	{ 0, 2, 0, XK_F5, "F5" },
+	{ 0, 0, XK_Shift_L, XK_F9, "F9" },
+	{ 0, 2, 0, XK_F6, "F6" },
+	{ 0, 0, XK_Shift_L, XK_F10, "F10" },
+	{ 0, 2, 0, XK_F7, "F7" },
+	{ 0, 0, XK_Shift_L, XK_F11, "F11" },
+	{ 0, 2, 0, XK_F8, "F8" },
+	{ 0, 0, XK_Shift_L, XK_F12, "F12" },
+	{ 1, 2, 0, XK_1, "1" },
+	{ 1, 0, XK_Shift_L, XK_exclam, "!" },
+	{ 1, 2, 0, XK_2, "2" },
+	{ 1, 0, XK_Shift_L, XK_at, "@" },
+	{ 1, 2, 0, XK_3, "3" },
+	{ 1, 0, XK_Shift_L, XK_numbersign, "#" },
+	{ 1, 2, 0, XK_4, "4" },
+	{ 1, 0, XK_Shift_L, XK_dollar, "$" },
+	{ 1, 2, 0, XK_5, "5" },
+	{ 1, 0, XK_Shift_L, XK_percent, "%" },
+	{ 1, 2, 0, XK_6, "6" },
+	{ 1, 0, XK_Shift_L, XK_asciicircum, "^" },
+	{ 1, 2, 0, XK_7, "7" },
+	{ 1, 0, XK_Shift_L, XK_ampersand, "&" },
+	{ 1, 2, 0, XK_8, "8" },
+	{ 1, 0, XK_Shift_L, XK_asterisk, "*" },
+	{ 1, 2, 0, XK_9, "9" },
+	{ 1, 0, XK_Shift_L, XK_parenleft, "(" },
+	{ 1, 2, 0, XK_0, "0" },
+	{ 1, 0, XK_Shift_L, XK_parenright, ")" },
+	{ 2, 3, 0, XK_Tab, "\xe2\x86\xb9" },
+	{ 2, 2, 0, XK_grave, "`" },
+	{ 2, 0, XK_Shift_L, XK_asciitilde, "~" },
+	{ 2, 2, 0, XK_minus, "-" },
+	{ 2, 0, XK_Shift_L, XK_minus, "_" },
+	{ 2, 2, 0, XK_equal, "=" },
+	{ 2, 0, XK_Shift_L, XK_equal, "+" },
+	{ 2, 2, 0, XK_backslash, "\\" },
+	{ 2, 0, XK_Shift_L, XK_backslash, "|" },
+	{ 2, 2, 0, XK_bracketleft, "[" },
+	{ 2, 0, XK_Shift_L, XK_bracketleft, "{" },
+	{ 2, 2, 0, XK_bracketright, "]" },
+	{ 2, 0, XK_Shift_L, XK_bracketright, "}" },
+	{ 2, 2, 0, XK_semicolon, ";" },
+	{ 2, 0, XK_Shift_L, XK_semicolon, ":" },
+	{ 2, 2, 0, XK_apostrophe, "'" },
+	{ 2, 0, XK_Shift_L, XK_apostrophe, "\"" },
+	{ 3, 3, 0, 0, NULL },
+	{ 3, 2, 0, XK_Shift_L, "\xe2\x87\xa7" },
+	{ 3, 3, 0, XK_space, " " },
+	{ 3, 0, XK_Shift_L, XK_space, " " },
+	{ 3, 2, 0, XK_comma, "," },
+	{ 3, 0, XK_Shift_L, XK_comma, "<" },
+	{ 3, 2, 0, XK_period, "." },
+	{ 2, 0, XK_Shift_L, XK_period, ">" },
+	{ 3, 2, 0, XK_slash, "/" },
+	{ 3, 0, XK_Shift_L, XK_slash, "?" },
+	{ 3, 3, 0, XK_Return, "\xe2\x86\xb2" },
+	{ 3, 3, 0, XK_BackSpace, "\xe2\x8c\xab" },
+	{ 0, 0, 0, 0, NULL }
+};
+
+static KeyboardKeyDefinition const _keyboard_layout_special_azerty[] =
+{
+	{ 0, 3, 0, XK_Escape, "Esc" },
+	{ 0, 1, 0, 0, NULL },
+	{ 0, 2, 0, XK_F1, "F1" },
+	{ 0, 0, XK_Shift_L, XK_F5, "F5" },
+	{ 0, 2, 0, XK_F2, "F2" },
+	{ 0, 0, XK_Shift_L, XK_F6, "F6" },
+	{ 0, 2, 0, XK_F3, "F3" },
+	{ 0, 0, XK_Shift_L, XK_F7, "F7" },
+	{ 0, 2, 0, XK_F4, "F4" },
+	{ 0, 0, XK_Shift_L, XK_F8, "F8" },
+	{ 0, 2, 0, XK_F5, "F5" },
+	{ 0, 0, XK_Shift_L, XK_F9, "F9" },
+	{ 0, 2, 0, XK_F6, "F6" },
+	{ 0, 0, XK_Shift_L, XK_F10, "F10" },
+	{ 0, 2, 0, XK_F7, "F7" },
+	{ 0, 0, XK_Shift_L, XK_F11, "F11" },
+	{ 0, 2, 0, XK_F8, "F8" },
+	{ 0, 0, XK_Shift_L, XK_F12, "F12" },
+	{ 1, 1, 0, 0, NULL },
+	{ 1, 2, 0, XK_ampersand, "&" },
+	{ 1, 0, XK_Shift_L, XK_1, "1" },
+	{ 1, 2, 0, XK_eacute, "é" },
+	{ 1, 0, XK_Shift_L, XK_2, "2" },
+	{ 1, 2, 0, XK_quotedbl, "\"" },
+	{ 1, 0, XK_Shift_L, XK_3, "3" },
+	{ 1, 2, 0, XK_apostrophe, "'" },
+	{ 1, 0, XK_Shift_L, XK_4, "4" },
+	{ 1, 2, 0, XK_parenleft, "(" },
+	{ 1, 0, XK_Shift_L, XK_5, "5" },
+	{ 1, 2, 0, XK_minus, "-" },
+	{ 1, 0, XK_Shift_L, XK_6, "6" },
+	{ 1, 2, 0, XK_egrave, "è" },
+	{ 1, 0, XK_Shift_L, XK_7, "7" },
+	{ 1, 2, 0, XK_underscore, "_" },
+	{ 1, 0, XK_Shift_L, XK_8, "8" },
+	{ 1, 2, 0, XK_ccedilla, "ç" },
+	{ 1, 0, XK_Shift_L, XK_9, "9" },
+	{ 1, 2, 0, XK_aacute, "à" },
+	{ 1, 0, XK_Shift_L, XK_0, "0" },
+	{ 2, 2, 0, XK_Tab, "\xe2\x86\xb9" },
+	{ 2, 2, 0, XK_twosuperior, "²" },
+	{ 2, 2, 0, XK_asciitilde, "~" },
+	{ 2, 2, 0, XK_numbersign, "#" },
+	{ 2, 2, 0, XK_braceleft, "{" },
+	{ 2, 2, 0, XK_bracketleft, "[" },
+	{ 2, 2, 0, XK_bracketright, "]" },
+	{ 2, 2, 0, XK_braceright, "}" },
+	{ 2, 2, 0, XK_parenright, ")" },
+	{ 2, 0, XK_Shift_L, XK_degree, "°" },
+	{ 2, 2, 0, XK_equal, "=" },
+	{ 2, 0, XK_Shift_L, XK_plus, "+" },
+	{ 3, 3, 0, 0, NULL },
+	{ 3, 2, 0, XK_Shift_L, "\xe2\x87\xa7" },
+	{ 3, 2, 0, XK_bracketleft, "|" },
+	{ 3, 2, 0, XK_grave, "`" },
+	{ 3, 2, 0, XK_backslash, "\\" },
+	{ 3, 2, 0, XK_asciicircum, "^" },
+	{ 3, 2, 0, XK_at, "@" },
+	{ 3, 3, 0, XK_Return, "\xe2\x86\xb2" },
+	{ 3, 3, 0, XK_BackSpace, "\xe2\x8c\xab" },
+	{ 0, 0, 0, 0, NULL }
+};
+
+static KeyboardKeyDefinition const * _keyboard_layout_special_definition[KLT_COUNT] =
+{
+	_keyboard_layout_special_qwerty,
+	_keyboard_layout_special_qwertz,
+	_keyboard_layout_special_azerty
 };
 
 
@@ -555,7 +703,7 @@ Keyboard * keyboard_new(KeyboardPrefs * prefs)
 	{
 		{ "Abc", _keyboard_layout_letters_qwerty	},
 		{ "123", _keyboard_layout_keypad		},
-		{ ",./", _keyboard_layout_special		}
+		{ ",./", _keyboard_layout_special_qwerty	}
 	};
 	size_t i;
 	KeyboardLayoutTypeName const * typename;
@@ -626,6 +774,7 @@ Keyboard * keyboard_new(KeyboardPrefs * prefs)
 			if(strcasecmp(prefs->layout, typename->name) == 0)
 			{
 				layout[0].keys = _keyboard_layout_letters_definition[typename->type];
+				layout[2].keys = _keyboard_layout_special_definition[typename->type];
 				break;
 			}
 			typename = NULL;
@@ -925,6 +1074,10 @@ static gboolean _about_on_closex(gpointer data)
 /* private */
 /* keyboard_add_layout */
 static void _layout_clicked(GtkWidget * widget, gpointer data);
+static void _layout_selector(Keyboard * keyboard, KeyboardLayout * layout,
+		KeyboardLayoutDefinition * definitions,
+		size_t definitions_cnt, KeyboardLayoutSection section,
+		unsigned int row, unsigned int column, unsigned width);
 
 static GtkWidget * _keyboard_add_layout(Keyboard * keyboard,
 		KeyboardLayoutDefinition * definitions,
@@ -935,17 +1088,11 @@ static GtkWidget * _keyboard_add_layout(Keyboard * keyboard,
 	KeyboardKeyDefinition const * keys;
 	size_t i;
 	KeyboardKey * key;
-	GtkWidget * label;
 	GtkWidget * widget;
-	unsigned long l;
-#if GTK_CHECK_VERSION(3, 0, 0)
-	gboolean dark = FALSE;
-	GdkRGBA black = { 0.0, 0.0, 0.0, 1.0 };
-	GdkRGBA white = { 1.0, 1.0, 1.0, 1.0 };
-#else
-	GdkColor black = { 0x00000000, 0x0000, 0x0000, 0x0000 };
-	GdkColor white = { 0xffffffff, 0xffff, 0xffff, 0xffff };
-	GdkColor gray = { 0xd0d0d0d0, 0xd0d0, 0xd0d0, 0xd0d0 };
+#if !GTK_CHECK_VERSION(3, 0, 0)
+	const GdkColor black = { 0x00000000, 0x0000, 0x0000, 0x0000 };
+	const GdkColor white = { 0xffffffff, 0xffff, 0xffff, 0xffff };
+	const GdkColor gray = { 0xd0d0d0d0, 0xd0d0, 0xd0d0, 0xd0d0 };
 #endif
 
 	if((p = realloc(keyboard->layouts, sizeof(*p) * (keyboard->layouts_cnt
@@ -954,10 +1101,6 @@ static GtkWidget * _keyboard_add_layout(Keyboard * keyboard,
 	keyboard->layouts = p;
 	if((layout = keyboard_layout_new()) == NULL)
 		return NULL;
-#if GTK_CHECK_VERSION(3, 0, 0)
-	g_object_get(gtk_settings_get_default(),
-			"gtk-application-prefer-dark-theme", &dark, NULL);
-#endif
 	keyboard->layouts[keyboard->layouts_cnt++] = layout;
 	keys = definitions[section].keys;
 	for(i = 0; keys[i].width != 0; i++)
@@ -980,27 +1123,8 @@ static GtkWidget * _keyboard_add_layout(Keyboard * keyboard,
 					keys[i + 1].keysym, keys[i + 1].label);
 		}
 	}
-	l = (section + 1) % definitions_cnt;
-	label = gtk_label_new(definitions[l].label);
-#if GTK_CHECK_VERSION(3, 0, 0)
-	gtk_widget_override_color(label, GTK_STATE_FLAG_NORMAL,
-			dark ? &white : &black);
-#else
-	gtk_widget_modify_fg(label, GTK_STATE_NORMAL, &black);
-#endif
-	gtk_widget_override_font(label, keyboard->font);
-	widget = gtk_button_new();
-#if GTK_CHECK_VERSION(3, 0, 0)
-	gtk_widget_override_background_color(widget, GTK_STATE_FLAG_NORMAL,
-			dark ? &black : &white);
-#else
-	gtk_widget_modify_bg(widget, GTK_STATE_NORMAL, &white);
-#endif
-	gtk_container_add(GTK_CONTAINER(widget), label);
-	g_object_set_data(G_OBJECT(widget), "layout", (void *)l);
-	g_signal_connect(widget, "clicked", G_CALLBACK(_layout_clicked),
-			keyboard);
-	keyboard_layout_add_widget(layout, 3, 0, 3, widget);
+	_layout_selector(keyboard, layout, definitions, definitions_cnt,
+			section, 3, 0, 3);
 	widget = keyboard_layout_get_widget(layout);
 	gtk_widget_show_all(widget);
 	gtk_widget_set_no_show_all(widget, TRUE);
@@ -1024,6 +1148,50 @@ static void _layout_clicked(GtkWidget * widget, gpointer data)
 			keyboard_set_layout(keyboard, section);
 			break;
 	}
+}
+
+static void _layout_selector(Keyboard * keyboard, KeyboardLayout * layout,
+		KeyboardLayoutDefinition * definitions,
+		size_t definitions_cnt, KeyboardLayoutSection section,
+		unsigned int row, unsigned int column, unsigned int width)
+{
+	unsigned long l;
+	GtkWidget * label;
+	GtkWidget * widget;
+#if GTK_CHECK_VERSION(3, 0, 0)
+	gboolean dark = FALSE;
+	const GdkRGBA black = { 0.0, 0.0, 0.0, 1.0 };
+	const GdkRGBA white = { 1.0, 1.0, 1.0, 1.0 };
+#else
+	const GdkColor black = { 0x00000000, 0x0000, 0x0000, 0x0000 };
+	const GdkColor white = { 0xffffffff, 0xffff, 0xffff, 0xffff };
+#endif
+
+#if GTK_CHECK_VERSION(3, 0, 0)
+	g_object_get(gtk_settings_get_default(),
+			"gtk-application-prefer-dark-theme", &dark, NULL);
+#endif
+	l = (section + 1) % definitions_cnt;
+	label = gtk_label_new(definitions[l].label);
+#if GTK_CHECK_VERSION(3, 0, 0)
+	gtk_widget_override_color(label, GTK_STATE_FLAG_NORMAL,
+			dark ? &white : &black);
+#else
+	gtk_widget_modify_fg(label, GTK_STATE_NORMAL, &black);
+#endif
+	gtk_widget_override_font(label, keyboard->font);
+	widget = gtk_button_new();
+#if GTK_CHECK_VERSION(3, 0, 0)
+	gtk_widget_override_background_color(widget, GTK_STATE_FLAG_NORMAL,
+			dark ? &black : &white);
+#else
+	gtk_widget_modify_bg(widget, GTK_STATE_NORMAL, &white);
+#endif
+	gtk_container_add(GTK_CONTAINER(widget), label);
+	g_object_set_data(G_OBJECT(widget), "layout", (void *)l);
+	g_signal_connect(widget, "clicked", G_CALLBACK(_layout_clicked),
+			keyboard);
+	keyboard_layout_add_widget(layout, row, column, width, widget);
 }
 
 
