@@ -1,14 +1,14 @@
 # $Id$
-# Copyright (c) 2014 Pierre Pronchery <khorben@defora.org>
+# Copyright (c) 2014-2020 Pierre Pronchery <khorben@defora.org>
 # Spanish translations for Keyboard package.
 # This file is distributed under the same license as the Keyboard package.
 # Pierre Pronchery <khorben@defora.org>, 2014.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Keyboard 0.2.1\n"
+"Project-Id-Version: Keyboard 0.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-24 04:16+0200\n"
+"POT-Creation-Date: 2020-01-12 07:47+0100\n"
 "PO-Revision-Date: 2014-12-28 20:19+0100\n"
 "Last-Translator: Pierre Pronchery <khorben@defora.org>\n"
 "Language-Team: Spanish\n"
@@ -18,45 +18,46 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/keyboard.c:117
+#: ../src/keyboard.c:145
 msgid "_Quit"
 msgstr "_Salir"
 
-#: ../src/keyboard.c:124
+#: ../src/keyboard.c:152
 msgid "_Hide"
 msgstr "_Ocultar"
 
-#: ../src/keyboard.c:132 ../src/keyboard.c:134
+#: ../src/keyboard.c:160 ../src/keyboard.c:162
 msgid "_About"
 msgstr "_Acerca de"
 
-#: ../src/keyboard.c:141
+#: ../src/keyboard.c:169
 msgid "_File"
 msgstr "_Archivo"
 
-#: ../src/keyboard.c:142
+#: ../src/keyboard.c:170
 msgid "_View"
 msgstr "_Ver"
 
-#: ../src/keyboard.c:143
+#: ../src/keyboard.c:171
 msgid "_Help"
 msgstr "_Ayuda"
 
-#: ../src/keyboard.c:451
+#: ../src/keyboard.c:816
 msgid "Virtual keyboard"
 msgstr ""
 
-#: ../src/keyboard.c:571
+#: ../src/keyboard.c:936
 msgid "Keyboard"
 msgstr "Teclado"
 
-#: ../src/keyboard.c:690
+#: ../src/keyboard.c:1055
 msgid "Virtual keyboard for the DeforaOS desktop"
 msgstr "Teclado virtual para el escritorio de DeforaOS"
 
-#: ../src/keyboardctl.c:83
+#: ../src/keyboardctl.c:87
+#, c-format
 msgid ""
-"Usage: keyboardctl [-H|-S]\n"
+"Usage: %s [-H|-S]\n"
 "  -H\tHide the keyboard\n"
 "  -S\tShow the keyboard\n"
 msgstr ""
@@ -64,8 +65,9 @@ msgstr ""
 #: ../src/main.c:92
 #, c-format
 msgid ""
-"Usage: %s [-d|-p|-w|-x][-f font][-m monitor][-n]\n"
+"Usage: %s [-d|-p|-w|-x][-f font][-l layout][-m monitor][-n]\n"
 "  -d\tStart in docked mode\n"
+"  -l\tSelect a different layout\n"
 "  -p\tStart as a popup window\n"
 "  -w\tStart in windowed mode\n"
 "  -x\tStart in embedded mode\n"
