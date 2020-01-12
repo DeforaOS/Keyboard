@@ -146,7 +146,7 @@ KeyboardKey * keyboard_layout_add(KeyboardLayout * layout, unsigned int row,
 				options, 2, 2);
 		p->keys[p->keys_cnt++] = ret;
 	}
-	p->width+=width;
+	p->width += width;
 	return ret;
 }
 
