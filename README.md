@@ -8,10 +8,12 @@ This program emulates a physical keyboard by providing a virtual interface on
 screen. It currently supports four modes:
  * docked, where it will occupy the bottom of the screen;
  * popup, likewise as a popup window;
- * windowed, where it can be found in the system tray (default)
+ * windowed, where it can be found in the system tray (the default)
  * embedded, which outputs its window ID for inclusion within another program.
 
 Additionally, it can be piloted through its companion tool, `desktopctl(1)`.
+
+Keyboard is part of the DeforaOS Project, found at https://www.defora.org/.
 
 Compiling Keyboard
 ------------------
@@ -26,6 +28,20 @@ With these installed, the following command should be enough to compile Keyboard
 on most systems:
 
     $ make
+
+The following command will then install Keyboard:
+
+    $ make install
+
+To install (or package) Keyboard in a different location:
+
+    $ make clean
+    $ make PREFIX="/another/prefix" install
+
+Keyboard also supports `DESTDIR`, to be installed in a staging directory; for
+instance:
+
+    $ make DESTDIR="/staging/directory" PREFIX="/another/prefix" install
 
 On some systems, the Makefiles shipped can be re-generated accordingly thanks to
 the DeforaOS configure tool.
