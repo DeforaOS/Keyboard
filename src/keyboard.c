@@ -322,6 +322,11 @@ static KeyboardKeyDefinition const _keyboard_layout_letters_azerty[] =
 	{ 0, 0, XK_Shift_L, XK_Z, "Z" },
 	{ 0, 2, 0, XK_e, "e" },
 	{ 0, 0, XK_Shift_L, XK_E, "E" },
+#if 0 /* def XK_CURRENCY */
+	{ 0, 0, XK_Alt_R, XK_EuroSign, "€" },
+#else
+	{ 0, 0, XK_Alt_R, XK_E, "€" },
+#endif
 	{ 0, 2, 0, XK_r, "r" },
 	{ 0, 0, XK_Shift_L, XK_R, "R" },
 	{ 0, 2, 0, XK_t, "t" },
